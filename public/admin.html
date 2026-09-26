@@ -1,0 +1,99 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#11120f"><link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/css/styles.css?v=20260926-admin-v7"><link rel="stylesheet" href="/css/admin.css?v=admin-v14"><title>Svit&Co — Admin</title></head>
+<body class="admin-body">
+<section class="admin-login" id="loginView">
+  <div class="login-shell">
+    <div class="login-brand"><img src="/assets/logo-svitco.webp" alt="" width="64"><span>Svit&Co</span></div>
+    <form class="login-form" id="loginForm"><label><span>Пароль адміністратора</span><input name="password" type="password" required autocomplete="current-password" placeholder="••••••••"></label><button class="admin-button primary" type="submit">Увійти</button><p class="admin-status" id="loginStatus"></p></form>
+    <a class="login-back" href="/uk">← Повернутися на сайт</a>
+  </div>
+</section>
+
+<div class="admin-app" id="adminView" hidden>
+  <aside class="admin-sidebar" id="adminSidebar">
+    <a class="admin-brand" href="/uk"><img src="/assets/logo-svitco.webp" alt="" width="42"><strong>Svit&Co</strong><span>Admin</span></a>
+    <nav class="admin-nav-list">
+      <button class="admin-nav active" data-panel="overview"><span>01</span>Огляд</button>
+      <button class="admin-nav" data-panel="leads"><span>02</span>Заявки</button>
+      <button class="admin-nav" data-panel="hero"><span>03</span>Головний екран</button>
+      <button class="admin-nav" data-panel="services"><span>04</span>Послуги</button>
+      <button class="admin-nav" data-panel="projects"><span>05</span>Проєкти та портфоліо</button>
+      <button class="admin-nav" data-panel="team"><span>06</span>Команда</button>
+      <button class="admin-nav" data-panel="sections"><span>07</span>Розділи сторінки</button>
+      <button class="admin-nav" data-panel="media"><span>08</span>Медіатека</button>
+      <button class="admin-nav" data-panel="contacts"><span>09</span>Контакти та способи зв’язку</button>
+      <button class="admin-nav" data-panel="notifications"><span>10</span>Сповіщення</button>
+      <button class="admin-nav" data-panel="brand"><span>11</span>Бренд і загальні налаштування</button>
+      <button class="admin-nav" data-panel="seo"><span>12</span>SEO та метадані</button>
+      <button class="admin-nav" data-panel="database"><span>13</span>База даних</button>
+    </nav>
+    <div class="sidebar-bottom"><a href="/uk" target="_blank">Відкрити сайт ↗</a><button id="logoutButton" type="button">Вийти</button></div>
+  </aside>
+  <header class="admin-mobile-header"><button id="adminMenu" type="button" aria-label="Меню">☰</button><strong>Svit&Co Admin</strong><a href="/uk" target="_blank">↗</a></header>
+  <main class="admin-content">
+    <div class="admin-top"><div><p class="admin-overline">Svit&Co / content manager</p><h1 id="panelTitle">Огляд</h1></div><p class="global-status admin-status" id="globalStatus"></p></div>
+
+    <section class="admin-panel active" data-panel-content="overview">
+      <div class="metric-grid"><article><span>Нові заявки</span><strong id="metricNew">0</strong></article><article><span>Опубліковані проєкти</span><strong id="metricProjects">0</strong></article><article><span>Команда</span><strong id="metricTeam">0</strong></article></div>
+      <div class="admin-grid two"><article class="admin-card"><div class="card-title"><div><span class="card-kicker">Status</span><h2>Що потребує уваги</h2></div></div><div id="overviewWarnings"></div></article><article class="admin-card"><div class="card-title"><div><span class="card-kicker">Latest</span><h2>Останні заявки</h2></div></div><div id="recentLeads"></div></article></div>
+    </section>
+
+    <section class="admin-panel" data-panel-content="leads"><div class="panel-toolbar"><p>Заявки зберігаються незалежно від статусу зовнішніх сповіщень.</p><a class="admin-button secondary" href="/api/admin/leads.csv">Експорт CSV</a></div><div id="leadsList" class="admin-list"></div></section>
+
+    <section class="admin-panel" data-panel-content="hero"><form class="admin-card admin-form dirty-form" id="heroForm"><div class="card-title"><div><span class="card-kicker">Homepage</span><h2>Перший екран</h2><p>Головний акцент сайту та перше зображення.</p></div><div class="save-cluster"><span class="form-save-status"></span><button class="admin-button primary" type="submit">Зберегти</button></div></div><div class="form-grid"><label><span>Заголовок UA</span><input name="titleUk"></label><label><span>Title EN</span><input name="titleEn"></label><label><span>Підзаголовок UA</span><textarea name="subtitleUk" rows="4"></textarea></label><label><span>Subtitle EN</span><textarea name="subtitleEn" rows="4"></textarea></label><div class="media-field wide"><span>Головне фото</span><div class="selected-media" id="heroImagePreview"></div><input name="image" type="hidden"><input id="heroDirectUpload" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden><div class="media-field-actions"><button class="admin-button secondary" type="button" data-pick-media="heroForm:image">Вибрати з медіатеки</button><button class="admin-button secondary" type="button" id="heroDirectUploadButton">Завантажити з телефону / комп’ютера</button><button class="admin-link-button" type="button" data-clear-media="heroForm:image">Прибрати</button></div></div><label><span>Alt UA</span><input name="imageAltUk"></label><label><span>Alt EN</span><input name="imageAltEn"></label><label><span>Текст основної кнопки UA</span><input name="primaryTextUk"></label><label><span>Primary button EN</span><input name="primaryTextEn"></label><label><span>Дія основної кнопки</span><select name="primaryAction"><option value="contact">Форма заявки</option><option value="projects">Портфоліо</option><option value="services">Послуги</option></select></label><label><span>Дія другої кнопки</span><select name="secondaryAction"><option value="projects">Портфоліо</option><option value="contact">Форма заявки</option><option value="services">Послуги</option></select></label></div></form></section>
+
+    <section class="admin-panel" data-panel-content="services"><div class="panel-toolbar"><p>Перша послуга відображається головною. Фото можна вибирати напряму з медіатеки.</p><button class="admin-button primary" id="addService" type="button">+ Додати послугу</button></div><div id="servicesList" class="content-card-grid"></div></section>
+
+    <section class="admin-panel" data-panel-content="projects"><div class="panel-toolbar"><p>Кожен проєкт має окрему сторінку, обкладинку та галерею.</p><button class="admin-button primary" id="addProject" type="button">+ Додати проєкт</button></div><div id="projectsList" class="content-card-grid projects-grid-admin"></div></section>
+
+    <section class="admin-panel" data-panel-content="team"><div class="panel-toolbar"><p>Публікуйте лише реальних членів команди. Якщо фото немає, сайт використає нейтральну заглушку.</p><button class="admin-button primary" id="addTeam" type="button">+ Додати майстра</button></div><div id="teamList" class="content-card-grid"></div></section>
+
+    <section class="admin-panel" data-panel-content="sections"><div class="panel-toolbar"><p>Системні секції можна приховувати та перейменовувати. Додаткові — створювати з контрольованих типів.</p><button class="admin-button primary" id="addSection" type="button">+ Додати секцію</button></div><div class="admin-card"><div class="card-title"><div><span class="card-kicker">Content</span><h2>Переваги, етапи та FAQ</h2></div><button class="admin-button secondary" id="editStructuredContent" type="button">Редагувати</button></div></div><div id="sectionsList" class="admin-list"></div></section>
+
+    <section class="admin-panel" data-panel-content="media"><div class="admin-card"><div class="card-title"><div><span class="card-kicker">Upload</span><h2>Додати зображення</h2><p>JPG, PNG, WebP або AVIF до 8 МБ. Фото автоматично оптимізується для вебу.</p></div></div><form class="media-upload" id="mediaUpload"><label class="drop-upload"><span>Фото з комп’ютера або телефона</span><input name="image" type="file" accept="image/*,.heic,.heif" required></label><label><span>Alt UA</span><input name="altUk"></label><label><span>Alt EN</span><input name="altEn"></label><button class="admin-button primary media-upload-submit" type="submit">Завантажити фото</button></form></div><div id="mediaList" class="media-library"></div></section>
+
+    <section class="admin-panel" data-panel-content="contacts"><form class="admin-card admin-form dirty-form" id="contactsForm"><div class="card-title"><div><span class="card-kicker">Public contacts</span><h2>Контакти та соціальні мережі</h2></div><div class="save-cluster"><span class="form-save-status"></span><button class="admin-button primary" type="submit">Зберегти</button></div></div><div class="form-grid"><label><span>Телефон</span><input name="phone" placeholder="+48 ..."></label><label><span>Email</span><input name="email" type="email"></label><label><span>WhatsApp</span><input name="whatsapp" placeholder="+48 ..."></label><label><span>Viber</span><input name="viber" placeholder="+48 ..."></label><label><span>Telegram</span><input name="telegram" placeholder="@username"></label><label><span>Посилання Facebook</span><input name="facebook" type="url" placeholder="https://www.facebook.com/your-page"><small class="field-help">Вставте повне посилання на сторінку Facebook. Після збереження іконка з’явиться у футері сайту.</small></label><label><span>Посилання Instagram</span><input name="instagram" type="url" placeholder="https://www.instagram.com/your-profile/"><small class="field-help">Вставте повне посилання на профіль Instagram. Після збереження іконка з’явиться у футері сайту.</small></label><label><span>Години роботи</span><input name="workingHours"></label><label class="wide"><span>Територія обслуговування</span><input name="serviceArea"></label></div><div class="settings-block"><h3>Способи відповіді, які може вибрати клієнт</h3><div id="contactMethodChecks" class="check-grid"></div></div><div class="settings-block"><h3>Публічні кнопки</h3><p class="settings-help">Щоб Facebook або Instagram показувалися внизу сайту, спочатку вставте посилання вище, а потім залиште відповідну кнопку увімкненою.</p><div id="directButtonChecks" class="check-grid"></div></div></form></section>
+
+    <section class="admin-panel" data-panel-content="notifications"><form class="admin-card admin-form dirty-form" id="notificationsForm"><div class="card-title"><div><span class="card-kicker">Owner alerts</span><h2>Сповіщення про заявки</h2><p>Ці налаштування не пов’язані зі способом відповіді, який вибрав клієнт.</p></div><div class="save-cluster"><span class="form-save-status"></span><button class="admin-button primary" type="submit">Зберегти</button></div></div><label class="compact-field"><span>Максимум спроб</span><input name="maxAttempts" type="number" min="1" max="6" value="3"></label><div id="notificationChannels" class="notification-grid"></div></form><div class="admin-card"><div class="card-title"><div><span class="card-kicker">Delivery log</span><h2>Останні спроби</h2></div></div><div id="notificationAttempts"></div></div></section>
+
+    <section class="admin-panel" data-panel-content="brand"><div class="admin-card"><div class="card-title"><div><span class="card-kicker">Brand</span><h2>Логотип Svit&Co</h2><p>Назва компанії не перекладається.</p></div></div><div class="brand-preview"><img id="brandLogoPreview" src="/assets/logo-svitco.webp" alt="Svit&Co"></div><form id="logoForm" class="logo-upload"><input name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/svg+xml" required><button class="admin-button primary" type="submit">Замінити логотип</button></form></div></section>
+
+    <section class="admin-panel" data-panel-content="seo"><form class="admin-card admin-form dirty-form" id="seoForm"><div class="card-title"><div><span class="card-kicker">Search</span><h2>SEO та метадані</h2></div><div class="save-cluster"><span class="form-save-status"></span><button class="admin-button primary" type="submit">Зберегти</button></div></div><div class="form-grid"><label><span>Title UA</span><input name="titleUk"></label><label><span>Title EN</span><input name="titleEn"></label><label><span>Description UA</span><textarea name="descriptionUk" rows="4"></textarea></label><label><span>Description EN</span><textarea name="descriptionEn" rows="4"></textarea></label></div></form></section>
+
+    <section class="admin-panel" data-panel-content="database">
+      <div class="admin-card">
+        <div class="card-title"><div><span class="card-kicker">Backup & migration</span><h2>База даних і резервна копія</h2><p>Завантажте повну копію наповнення сайту перед deploy, великими змінами або перенесенням на інший сервер.</p></div></div>
+        <div class="backup-explainer">
+          <h3>Що входить у повний архів</h3>
+          <ul class="plain-list">
+            <li><strong>database.json</strong> — заявки, проєкти, послуги, команда, секції, контакти, SEO, налаштування та черга сповіщень.</li>
+            <li><strong>uploads/</strong> — усі фото й файли, які були завантажені через сайт та адмін-панель.</li>
+            <li><strong>BACKUP-MANIFEST.json</strong> — дата створення, версія структури та коротка інструкція для відновлення.</li>
+          </ul>
+          <p class="settings-help"><strong>Безпека:</strong> Environment Variables, пароль адмінки, SESSION_SECRET, Telegram/API токени та інші серверні секрети до backup-архіву не додаються.</p>
+        </div>
+        <div class="backup-actions">
+          <a class="admin-button primary" href="/api/admin/backup/full">Завантажити повну резервну копію</a>
+          <p class="settings-help">Рекомендація: завантажуйте цей архів перед кожним важливим deploy. Він потрібен саме для відновлення контенту та завантажених файлів.</p>
+        </div>
+        <div class="restore-box">
+          <div>
+            <span class="card-kicker">Restore</span>
+            <h3>Відновити сайт із резервної копії</h3>
+            <p>Виберіть той самий файл <strong>.tar.gz</strong>, який раніше завантажили кнопкою резервної копії. Перед відновленням система автоматично збереже поточний стан.</p>
+          </div>
+          <form id="restoreBackupForm" class="restore-form">
+            <input name="backup" type="file" accept=".tar.gz,application/gzip,application/x-gzip" required>
+            <button class="admin-button secondary" type="submit">Відновити з архіву</button>
+          </form>
+          <p class="admin-status" id="restoreBackupStatus"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog class="editor-dialog" id="editor"><form id="editorForm"><header class="dialog-header"><div><p class="admin-overline" id="editorEyebrow">Редагування</p><h2 id="editorTitle">Запис</h2></div><button id="editorClose" type="button" aria-label="Закрити">×</button></header><div id="editorFields" class="form-grid"></div><p class="admin-status" id="editorStatus"></p><footer class="dialog-footer"><button class="admin-button secondary" id="editorCancel" type="button">Скасувати</button><button class="admin-button primary" type="submit">Зберегти</button></footer></form></dialog>
+
+<div class="media-picker-dialog" id="mediaPicker" hidden><header class="dialog-header"><div><p class="admin-overline">Media library</p><h2>Виберіть зображення</h2></div><button id="mediaPickerClose" type="button">×</button></header><div class="media-picker-toolbar"><input id="mediaSearch" type="search" placeholder="Пошук за назвою або alt..."><label class="admin-button secondary device-upload-label" for="mediaPickerDirectUpload">+ Завантажити з пристрою<input id="mediaPickerDirectUpload" type="file" accept="image/*,.heic,.heif" aria-label="Завантажити фото з пристрою"></label></div><div id="mediaPickerGrid" class="media-library picker-grid"></div></div>
+
+<script src="/js/admin.js?v=admin-v14" defer></script></body></html>
