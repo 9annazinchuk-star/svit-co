@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const read=p=>fs.readFileSync(new URL('../'+p, import.meta.url),'utf8');
+const server=read('server.cjs'), app=read('public/js/app.js'), index=read('public/index.html'), admin=read('public/js/admin.js'), adminHtml=read('public/admin.html'), css=read('public/css/styles.css'), adminCss=read('public/css/admin.css'), render=read('render.yaml');
+for (const s of ['Ремонт квартир під ключ','Complete Apartment Renovation','service-shower','service-toilet']) assert(server.includes(s));
+for (const s of ['teamFromLegacy','servicePriorityV4','backupDb','notificationQueue','Idempotency-Key','NOTIFICATION_TEST_MODE']) assert(server.includes(s));
+for (const s of ['telegram','email','sms','whatsapp']) assert(server.includes(`channel==='${s}'`) || server.includes(`'${s}'`));
+for (const s of ['Огляд','Заявки','Головний екран','Послуги','Проєкти та портфоліо','Команда','Розділи сторінки','Медіатека','Контакти та способи зв’язку','Сповіщення','Бренд і загальні налаштування','SEO та метадані']) assert(adminHtml.includes(s));
+assert(app.includes('preferredContact')); assert(index.includes('convenientTime')); assert(app.includes('Idempotency-Key'));
+assert(css.includes('prefers-reduced-motion')); assert(css.includes('overflow-x:hidden')); assert(css.includes('@media(max-width:600px)')); assert(adminCss.includes('@media(max-width:390px)'));
+assert(render.includes('mountPath: /var/data')); assert(render.includes('DATA_DIR'));
+assert(admin.includes('beforeunload'));
+console.log('v4 static requirements: OK');
