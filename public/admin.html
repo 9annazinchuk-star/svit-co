@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <title>Адмін-панель · Svit&amp;Co</title>
+</head>
+<body class="admin-body">
+  <main class="admin-login" id="loginView">
+    <form class="login-card glass" id="loginForm">
+      <a class="brand site-brand admin-brand" href="/uk" aria-label="Svit&amp;Co — на головну"><picture class="site-brand__logo"><source class="admin-brand-source" srcset="/assets/logo-svitco.webp"><img class="admin-brand-logo" src="/assets/logo-svitco.png" alt="" width="66" height="46"></picture><span class="site-brand__name">Svit&amp;Co</span></a>
+      <div><p class="eyebrow">Захищений доступ</p><h1>Адмін-панель</h1><p>Керуйте контактами, проєктами, фотографіями та заявками.</p></div>
+      <label><span>Пароль адміністратора</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="admin-status" id="loginStatus" role="status"></p>
+      <button class="button button-primary" type="submit">Увійти</button>
+      <a class="back-link" href="/uk">← Повернутися на сайт</a>
+    </form>
+  </main>
+
+  <div class="admin-app" id="adminView" hidden>
+    <aside class="admin-sidebar">
+      <a class="brand site-brand admin-brand" href="/uk" aria-label="Svit&amp;Co — на головну"><picture class="site-brand__logo"><source class="admin-brand-source" srcset="/assets/logo-svitco.webp"><img class="admin-brand-logo" src="/assets/logo-svitco.png" alt="" width="66" height="46"></picture><span class="site-brand__name">Svit&amp;Co</span></a>
+      <nav aria-label="Адмін-навігація">
+        <button class="admin-nav active" data-panel="overview"><span>◫</span> Огляд</button>
+        <button class="admin-nav" data-panel="settings"><span>⚙</span> Налаштування</button>
+        <button class="admin-nav" data-panel="projects"><span>▧</span> Проєкти</button>
+        <button class="admin-nav" data-panel="leads"><span>↗</span> Заявки</button>
+      </nav>
+      <div class="sidebar-bottom"><a href="/uk" target="_blank">Відкрити сайт ↗</a><button id="logoutButton" type="button">Вийти</button></div>
+    </aside>
+    <header class="admin-mobile-header"><button id="adminMenu" type="button" aria-label="Відкрити навігацію">☰</button><strong>Адмін-панель</strong><a href="/uk">Сайт ↗</a></header>
+    <div class="admin-content">
+      <div class="admin-top"><div><p class="eyebrow">Svit&amp;Co</p><h1 id="panelTitle">Огляд</h1></div><button class="button button-primary button-small" type="button" data-open-project>＋ Додати проєкт</button></div>
+      <p class="admin-status global-status" id="globalStatus" role="status" aria-live="polite"></p>
+
+      <section class="admin-panel active" data-panel-content="overview">
+        <div class="metric-grid"><article><span>Нові заявки</span><strong id="metricNew">0</strong></article><article><span>Проєкти</span><strong id="metricProjects">0</strong></article><article><span>Опубліковано</span><strong id="metricPublished">0</strong></article></div>
+        <div class="admin-card"><div class="admin-card-head"><div><h2>Швидкий старт</h2><p>Що потрібно заповнити перед публікацією.</p></div></div><ul class="checklist"><li>Встановіть реальні назву, контакти та територію роботи.</li><li>Завантажте головне фото майстра або готового інтер’єру.</li><li>Додайте двомовні назви та описи реальних проєктів.</li><li>Перевірте Privacy Policy і Terms відповідно до місцевого законодавства.</li></ul></div>
+        <div class="admin-card"><div class="admin-card-head"><div><h2>Останні заявки</h2><p>Нові звернення клієнтів.</p></div><button class="text-button" data-go-panel="leads">Переглянути всі →</button></div><div id="recentLeads"></div></div>
+      </section>
+
+      <section class="admin-panel" data-panel-content="settings">
+        <form id="settingsForm" class="admin-card admin-form">
+          <div class="admin-card-head"><div><h2>Бізнес і контакти</h2><p>Незаповнені додаткові канали не показуються на сайті.</p></div><button class="button button-primary button-small" type="submit">Зберегти</button></div>
+          <div class="admin-form-grid">
+            <label><span>Назва компанії</span><input name="companyName" required></label><label><span>Ім’я майстра</span><input name="ownerName"></label>
+            <label><span>Телефон</span><input name="phone" type="tel"></label><label><span>WhatsApp</span><input name="whatsapp" type="tel"></label>
+            <label><span>Email</span><input name="email" type="email"></label><label><span>Telegram URL</span><input name="telegram" type="url"></label>
+            <label><span>Viber номер</span><input name="viber"></label><label><span>Messenger URL</span><input name="messenger" type="url"></label>
+            <label><span>Місто</span><input name="city"></label><label><span>Територія роботи</span><input name="serviceArea"></label>
+            <label><span>Країна</span><input name="country"></label><label><span>Години роботи</span><input name="workingHours"></label>
+            <label class="admin-check"><input name="smsEnabled" type="checkbox"><span>Показувати SMS як спосіб зв’язку</span></label>
+            <label class="wide"><span>Про майстра — українською</span><textarea name="aboutUk" rows="4"></textarea></label>
+            <label class="wide"><span>About — English</span><textarea name="aboutEn" rows="4"></textarea></label>
+            <label><span>SEO title — українською</span><input name="seoTitleUk"></label><label><span>SEO title — English</span><input name="seoTitleEn"></label>
+            <label class="wide"><span>SEO description — українською</span><textarea name="seoDescriptionUk" rows="3"></textarea></label>
+            <label class="wide"><span>SEO description — English</span><textarea name="seoDescriptionEn" rows="3"></textarea></label>
+          </div>
+        </form>
+        <form id="heroForm" class="admin-card admin-form" enctype="multipart/form-data"><div class="admin-card-head"><div><h2>Головне фото</h2><p>Використовуйте реальне вертикальне або інтер’єрне фото. JPG, PNG, WebP або AVIF, до 8 МБ.</p></div><button class="button button-primary button-small" type="submit">Завантажити</button></div><input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/avif" required><div id="heroPreview" class="hero-preview"></div></form>
+        <form id="logoForm" class="admin-card admin-form" enctype="multipart/form-data"><div class="admin-card-head"><div><h2>Логотип Svit&amp;Co</h2><p>PNG, WebP, SVG або JPG, до 5 МБ. Для найкращого результату використовуйте файл із прозорим фоном.</p></div><div class="admin-card-actions"><button class="button button-secondary button-small" id="resetLogoButton" type="button">Відновити стандартний</button><button class="button button-primary button-small" type="submit">Зберегти логотип</button></div></div><input id="logoInput" type="file" name="logo" accept="image/png,image/webp,image/svg+xml,image/jpeg" required><div id="logoPreview" class="logo-preview"><img id="logoPreviewImage" src="/assets/logo-svitco.png" alt="Поточний логотип Svit&amp;Co"></div><p class="admin-hint" id="logoHint">JPEG може містити непрозорий фон. Рекомендуємо PNG, WebP або SVG.</p></form>
+      </section>
+
+      <section class="admin-panel" data-panel-content="projects">
+        <div class="admin-card-head standalone"><div><h2>Проєкти</h2><p>Кожен опублікований проєкт з’являється у портфоліо.</p></div><button class="button button-primary" type="button" data-open-project>＋ Додати проєкт</button></div><div class="admin-projects" id="adminProjects"></div>
+      </section>
+
+      <section class="admin-panel" data-panel-content="leads">
+        <div class="admin-card-head standalone"><div><h2>Заявки</h2><p>Контакти та деталі, надіслані через сайт.</p></div><a class="button button-secondary button-small" href="/api/admin/leads.csv">Експорт CSV</a></div><div class="leads-list" id="leadsList"></div>
+      </section>
+    </div>
+  </div>
+
+  <dialog class="admin-dialog" id="projectEditor">
+    <button class="dialog-close" id="projectEditorClose" type="button" aria-label="Закрити">×</button>
+    <form id="projectForm" enctype="multipart/form-data">
+      <p class="eyebrow">Проєкт</p><h2 id="projectEditorTitle">Додати проєкт</h2><p>Заповніть обидві мови. Публікуйте лише реальні роботи та фотографії.</p>
+      <div class="admin-form-grid"><label><span>Назва українською *</span><input name="titleUk" required maxlength="160"></label><label><span>Title in English *</span><input name="titleEn" required maxlength="160"></label><label class="wide"><span>Опис українською</span><textarea name="descriptionUk" rows="4"></textarea></label><label class="wide"><span>Description in English</span><textarea name="descriptionEn" rows="4"></textarea></label><label><span>Категорія</span><select name="category"><option value="apartments">Квартири</option><option value="bathrooms">Ванні кімнати</option><option value="kitchens">Кухні</option><option value="painting">Фарбування</option><option value="flooring">Підлога</option><option value="finishing">Внутрішнє оздоблення</option></select></label><label><span>Місце (без точної адреси)</span><input name="location" maxlength="120"></label><label class="wide"><span>Фотографії (до 10)</span><input name="images" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple></label><label><span>Alt українською</span><input name="altUk" maxlength="240"></label><label><span>Alt English</span><input name="altEn" maxlength="240"></label><label class="admin-check wide"><input name="published" type="checkbox" checked><span>Опублікувати після збереження</span></label></div>
+      <p class="admin-status" id="projectStatus"></p><div class="dialog-actions"><button class="button button-secondary" type="button" id="projectCancel">Скасувати</button><button class="button button-primary" type="submit">Зберегти проєкт</button></div>
+    </form>
+  </dialog>
+  <script src="/js/admin.js" defer></script>
+</body>
+</html>
