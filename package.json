@@ -1,0 +1,24 @@
+{
+  "name": "svitco-renovation-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bilingual renovation business website with admin dashboard, portfolio uploads and lead management.",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node scripts/dev.cjs",
+    "check": "node --check server.cjs && node --check public/js/app.js && node --check public/js/admin.js && node tests/static-v4.mjs && node tests/backup-admin.mjs && node tests/admin-mobile-v6.mjs && node tests/admin-v7.mjs && node tests/deep-audit-v8.mjs",
+    "test": "npm run check && node tests/functional-v4.mjs && node tests/link-check.mjs && node tests/logo-persistence.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cookie-session": "^2.1.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2"
+  }
+}
