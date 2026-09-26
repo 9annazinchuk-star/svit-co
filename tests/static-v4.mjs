@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const server=fs.readFileSync('server.cjs','utf8'),app=fs.readFileSync('public/js/app.js','utf8'),admin=fs.readFileSync('public/js/admin.js','utf8'),html=fs.readFileSync('public/admin.html','utf8'),render=fs.readFileSync('render.yaml','utf8');
+const assert=(v,m)=>{if(!v)throw new Error(m)};
+assert(server.includes("delete copy.notifications"),'private notification config must not be public');
+assert(server.includes('idempotencyKey'),'lead idempotency missing');
+assert(server.includes('notificationQueue'),'persistent notification queue missing');
+assert(server.includes("service-shower")&&server.includes("service-toilet"),'separate shower/toilet services missing');
+assert(server.includes('teamFromAbout'),'one-time team migration missing');
+assert(server.includes('createBackup'),'migration backup missing');
+assert(render.includes('mountPath: /var/data'),'Persistent Disk mount changed');
+for(const x of ['Огляд','Заявки','Головний екран','Послуги','Проєкти та портфоліо','Команда','Розділи сторінки','Медіатека','Контакти та способи зв’язку','Сповіщення','Бренд і загальні налаштування','SEO та метадані'])assert(html.includes(x),`admin menu missing ${x}`);
+assert((html.match(/Додати проєкт/g)||[]).length===1,'duplicate Add Project buttons');
+assert(app.includes("prefers-reduced-motion"),'reduced motion JS missing');
+assert(admin.includes('beforeunload'),'unsaved changes warning missing');
+console.log('Svit&Co v4 static requirements checks passed.');

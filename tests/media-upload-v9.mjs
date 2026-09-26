@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+const a=fs.readFileSync('public/admin.html','utf8');
+const j=fs.readFileSync('public/js/admin.js','utf8');
+const c=fs.readFileSync('public/css/admin.css','utf8');
+const s=fs.readFileSync('server.cjs','utf8');
+const ok=(v,m)=>{if(!v)throw new Error(m)};
+ok(a.includes('id="mediaPickerDirectUpload"')&&a.includes('accept="image/*,.heic,.heif"'),'media picker device input missing');
+ok(a.includes('Фото з комп’ютера або телефона'),'main media device upload missing');
+ok(j.includes('device-upload-label')&&j.includes('data-editor-upload-input'),'editor direct device upload missing');
+ok(j.includes('galleryDirectUpload')&&j.includes('accept="image/*,.heic,.heif"'),'gallery device upload missing');
+ok(c.includes('.device-upload-label input[type=file]'),'native picker label CSS missing');
+ok(s.includes("'image/heic'")&&s.includes("'image/heif'"),'HEIC/HEIF upload support missing');
+console.log('media upload v9 checks passed');
