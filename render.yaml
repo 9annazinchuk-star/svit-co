@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: svitco-renovation
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: BASE_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        value: "13031234"
+      - key: SESSION_SECRET
+        generateValue: true
+    disk:
+      name: svitco-data
+      mountPath: /var/data
+      sizeGB: 1
